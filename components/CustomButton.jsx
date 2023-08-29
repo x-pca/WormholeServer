@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default function CustomButton({ message, styles2 }) {
   return (
     <TouchableOpacity onPress={() => Alert.alert('Hello!')}>
