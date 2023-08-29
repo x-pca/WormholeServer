@@ -21,10 +21,12 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
       throw new Error(`Unable to find ${file}`);
     }
 
-    const src = child_process.execSync(
-      `npx babel --presets=@babel/preset-env,@babel/preset-react ${wormhole}`,
-      { cwd: `${componentsPath}` },
-    ).toString();
+    // const src = child_process.execSync(
+    //   `npx babel --presets=@babel/preset-env,@babel/preset-react ${wormhole}`,
+    //   { cwd: `${componentsPath}` },
+    // ).toString();
+
+    const src = fs.readFileSync(file, 'utf8');
 
     const componentData = {
       jsx: src,

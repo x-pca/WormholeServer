@@ -14,11 +14,9 @@ const styles = StyleSheet.create({
 
 
 export default function CustomButton({ message, styles2 }) {
-  // console.log('styles2', styles2);
-
   return (
     <TouchableOpacity onPress={() => Alert.alert('Hello!')}>
-      <Text style={styles.button} children="Click here to" />
+      <Text style={styles.button} children="Click here to Go" />
 
       <Text style={styles2.button} >{message ? message : 'no message'}</Text>
 
