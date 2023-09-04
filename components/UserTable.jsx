@@ -10,7 +10,7 @@ const UserTable = () => {
 
   return (
     <View style={stylesA.container}>
-      <Text style={{ padding: 10, fontSize: 42 }}>User Table</Text>
+      <Text style={{ padding: 10, fontSize: 32 }}>User Table</Text>
 
       <DataTable>
         <DataTable.Header>

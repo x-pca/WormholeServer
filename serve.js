@@ -15,7 +15,7 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
   try {
     const { params } = req;
     const { wormhole } = params;
-    const file = path.resolve(componentsPath, wormhole);
+    const file = path.resolve(componentsPath, wormhole + '.jsx');
 
     if (!fs.existsSync(file)) {
       throw new Error(`Unable to find ${file}`);
@@ -28,16 +28,36 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
 
     const src = fs.readFileSync(file, 'utf8');
 
+    // const componentData = {
+    //   jsx: src,
+    //   styles: {
+    //     button: {
+    //       backgroundColor: 'green',
+    //       fontSize: 18,
+    //       borderRadius: 8,
+    //       padding: 10,
+    //     },
+    //   },
+    // };
+
     const componentData = {
-      jsx: src,
-      styles: {
+      html: "",
+      javascript: src,
+      css: {
         button: {
-          backgroundColor: 'green',
+          backgroundColor: "green",
           fontSize: 18,
           borderRadius: 8,
           padding: 10,
         },
       },
+      jsResources: [],
+      cssResources: [],
+      jsExtResources: [],
+      cssExtResources: [],
+      name: "",
+      server: "",
+      update: 0,
     };
 
     const jsonComp = JSON.stringify(componentData);
@@ -45,6 +65,7 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
     const signature = await wallet.signMessage(jsonComp);
 
     return res
+      .setHeader("Content-Type", "application/json")
       .status(200)
       .set({ 'X-Csrf-Token': signature })
       .send(jsonComp);
