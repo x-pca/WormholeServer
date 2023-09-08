@@ -1,0 +1,43 @@
+
+[
+  {
+    "name": "WatchList",
+    "options": {
+      "tabBarLabel": "Watch List",
+      "tabBarIcon": {
+        "name": "list"
+      }
+    },
+    "id": "WatchList"
+  },
+  {
+    "name": "Chart",
+    "options": {
+      "tabBarLabel": "Chart",
+      "tabBarIcon": {
+        "name": "stats-chart"
+      }
+    },
+    "id": "MyChart"
+  },
+  {
+    "name": "Insights",
+    "options": {
+      "tabBarLabel": "Insights",
+      "tabBarIcon": {
+        "name": "information"
+      }
+    },
+    "id": "Insights"
+  },
+  {
+    "name": "Navigator",
+    "options": {
+      "tabBarLabel": "Navigator",
+      "tabBarIcon": {
+        "name": "settings"
+      }
+    },
+    "id": "MyNavigator"
+  }
+]

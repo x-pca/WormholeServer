@@ -21,24 +21,7 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
       throw new Error(`Unable to find ${file}`);
     }
 
-    // const src = child_process.execSync(
-    //   `npx babel --presets=@babel/preset-env,@babel/preset-react ${wormhole}`,
-    //   { cwd: `${componentsPath}` },
-    // ).toString();
-
     const src = fs.readFileSync(file, 'utf8');
-
-    // const componentData = {
-    //   jsx: src,
-    //   styles: {
-    //     button: {
-    //       backgroundColor: 'green',
-    //       fontSize: 18,
-    //       borderRadius: 8,
-    //       padding: 10,
-    //     },
-    //   },
-    // };
 
     const componentData = {
       html: "",
@@ -51,7 +34,7 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
           padding: 10,
         },
       },
-      jsResources: [],
+      jsResources: ['MyTable'],
       cssResources: [],
       jsExtResources: [],
       cssExtResources: [],
@@ -75,6 +58,27 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
   }
 };
 
+const serveScreenConfigs = async (req, res, next) => {
+  const { params } = req;
+  const { fileName } = params;
+  const file = path.resolve(`${appRootPath}`, 'data', fileName);
+
+  try {
+    if (!fs.existsSync(file)) {
+      throw new Error(`Unable to find ${file}`);
+    }
+
+    const src = fs.readFileSync(file, 'utf8');
+
+    return res
+        .setHeader("Content-Type", "application/json")
+        .status(200)
+        .send(src);
+  } catch(e) {
+    return next(e);
+  }
+};
+
 (async () => {
   const { PORT, SIGNER_MNEMONIC } = process.env;
   const wallet = await ethers.Wallet.fromMnemonic(SIGNER_MNEMONIC);
@@ -82,6 +86,7 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
   await new Promise(
     resolve => express()
       .get('/component/:wormhole', serveTranspiledFile(wallet))
+      .get('/data/:fileName', serveScreenConfigs)
       .listen(PORT, resolve),
   );
   

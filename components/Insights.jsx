@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {  View, ScrollView } from "react-native";
 import {
     Card,
@@ -46,10 +46,23 @@ const Insight = ({ data }) => {
   );
 };
 
-const Insights = ({ insightData }) => {
+const Insights = () => {
+  const [insights, setInsights] = useState([]);
+
+  useEffect(() => {
+    fetch("http://192.168.1.6:3000/data/insights.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setInsights(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
     return (
       <ScrollView>
-        {insightData.map((data) => <Insight key={data.symbol} data={data} />)}
+        {insights.map((data) => <Insight key={data.symbol} data={data} />)}
       </ScrollView>
     );
 };

@@ -1,0 +1,44 @@
+[
+  {
+    "image": "https://e7.pngegg.com/pngimages/121/286/png-clipart-apple-logo-computer-icons-apple-logo-company-heart.png",
+    "symbol": "AAPL",
+    "last": 180,
+    "buy": 179.89,
+    "sell": 179.99
+  },
+  {
+    "image": "https://e1.pngegg.com/pngimages/682/548/png-clipart-simply-styled-icon-set-731-icons-free-microsoft-windows-icon.png",
+    "symbol": "MSFT",
+    "last": 323.7,
+    "buy": 322.14,
+    "sell": 322.4
+  },
+  {
+    "image": "https://www.freepnglogos.com/uploads/tesla-logo-png-27.png",
+    "symbol": "TSLA",
+    "last": 238.82,
+    "buy": 237.38,
+    "sell": 237.5
+  },
+  {
+    "image": "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/235_Nvidia_logo-512.png",
+    "symbol": "NVDA",
+    "last": 468.35,
+    "buy": 464.4,
+    "sell": 464.9
+  },
+  {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2500px-Amazon_icon.svg.png",
+    "symbol": "AMZN",
+    "last": 133.14,
+    "buy": 132.83,
+    "sell": 132.88
+  },
+  {
+    "image": "https://toppng.com/uploads/preview/netflix-logo-png-hd-116606008027stwkbpdxc.png",
+    "symbol": "NFLX",
+    "last": 418.06,
+    "buy": 416.0,
+    "sell": 416.72
+  }
+]
