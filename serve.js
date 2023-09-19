@@ -13,9 +13,10 @@ const componentsPath = path.resolve(`${appRootPath}`, 'components');
 
 const serveTranspiledFile = wallet => async (req, res, next) => {
   try {
-    const { params } = req;
-    const { wormhole } = params;
-    const file = path.resolve(componentsPath, wormhole + '.jsx');
+    const { params, query } = req;
+    const fileName = query.id.split('~')[1];
+    // console.log('fileName', fileName);
+    const file = path.resolve(componentsPath, fileName + '.jsx');
 
     if (!fs.existsSync(file)) {
       throw new Error(`Unable to find ${file}`);
@@ -23,18 +24,21 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
 
     const src = fs.readFileSync(file, 'utf8');
 
+    // const depedencyPath = path.resolve(componentsPath, wormhole + '.dependency.json');
+
+    // let jsResources = [];
+
+    // if (!fs.existsSync(depedencyPath)) {
+    //   console.log('No dependency file for ' + wormhole);
+    // } else {
+    //   jsResources = JSON.parse(fs.readFileSync(depedencyPath, 'utf8'));
+    // }
+
     const componentData = {
       html: "",
       javascript: src,
-      css: {
-        button: {
-          backgroundColor: "green",
-          fontSize: 18,
-          borderRadius: 8,
-          padding: 10,
-        },
-      },
-      jsResources: ['MyTable'],
+      css: "",
+      jsResources: [],
       cssResources: [],
       jsExtResources: [],
       cssExtResources: [],
@@ -58,10 +62,12 @@ const serveTranspiledFile = wallet => async (req, res, next) => {
   }
 };
 
-const serveScreenConfigs = async (req, res, next) => {
-  const { params } = req;
-  const { fileName } = params;
-  const file = path.resolve(`${appRootPath}`, 'data', fileName);
+const serveData = async (req, res, next) => {
+  const { params, query } = req;
+
+  const fileName = query.id;
+  // console.log('fileName', fileName);
+  const file = path.resolve(`${appRootPath}`, 'data', fileName + '.json');
 
   try {
     if (!fs.existsSync(file)) {
@@ -85,8 +91,9 @@ const serveScreenConfigs = async (req, res, next) => {
 
   await new Promise(
     resolve => express()
-      .get('/component/:wormhole', serveTranspiledFile(wallet))
-      .get('/data/:fileName', serveScreenConfigs)
+      .get('/rest/web/json', serveTranspiledFile(wallet))
+      .get('/rest/web/js', serveData)
+      .get('/rest/web/menu', serveData)
       .listen(PORT, resolve),
   );
   

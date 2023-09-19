@@ -8,7 +8,7 @@
         "name": "list"
       }
     },
-    "id": "Watchlist"
+    "id": "WatchList"
   },
   {
     "name": "Chart",
@@ -29,5 +29,15 @@
       }
     },
     "id": "Insights"
+  },
+  {
+    "name": "Navigation",
+    "options": {
+      "tabBarLabel": "Navigation",
+      "tabBarIcon": {
+        "name": "settings"
+      }
+    },
+    "id": "MyNavigator"
   }
 ]

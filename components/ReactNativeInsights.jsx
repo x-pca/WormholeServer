@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  View, ScrollView } from "react-native";
+import {  View, ScrollView, SafeAreaView } from "react-native";
 import {
     Card,
     Button,
@@ -10,7 +10,7 @@ import {
 
 const Insight = ({ data }) => {
   return (
-    <View style={{ flex: 1, padding: 8 }}>
+    <SafeAreaView style={{ flex: 1, padding: 8 }}>
       <Card>
         <Card.Cover source={{ uri: data.coverImage }} />
 
@@ -23,11 +23,11 @@ const Insight = ({ data }) => {
           }
           subtitle={<Text style={{ color: "#888" }}>{data.name}</Text>}
           left={(props) => <Avatar.Image {...props} source={{ uri: data.icon }} />}
-          right={(props) => <Button {...props} icon="rocket" mode="contained-tonal" buttonColor="#ff4040" style={{ marginRight: 10 }}>Buy</Button>}
+          // right={(props) => <Button {...props} icon="rocket" mode="contained-tonal" buttonColor="#ff4040" style={{ marginRight: 10 }}>Buy</Button>}
         />
 
         <Card.Content>
-          <Text variant="titleMedium">{data.date.toLocaleString()}</Text>
+          <Text variant="titleMedium">{ new Date(data.date).toLocaleString() }</Text>
           <Text variant="bodyMedium">{data.content}</Text>
         </Card.Content>
 
@@ -42,7 +42,7 @@ const Insight = ({ data }) => {
           </View>
         </Card.Actions>
       </Card>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -50,7 +50,7 @@ const Insights = () => {
   const [insights, setInsights] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.1.6:3000/data/insights.json")
+    fetch("http://192.168.1.6:3000/rest/web/js?id=insights")
       .then((response) => response.json())
       .then((data) => {
         setInsights(data);

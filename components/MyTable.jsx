@@ -1,37 +1,37 @@
 import {
   FlatList,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-// import TableItem from "./TableItem";
-// import { AppWormhole as Wormhole } from 'AppWormhole';
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
 
-// const TableItem = ({ item }) => {
-//   return <Wormhole
-//     source={{ uri: "http://192.168.1.6:3000/component/TableItem" }}
-//     item={item}
-//   />;
-// }
+const TableItem = ({ item }) => {
+  return (
+    <View style={{ flexDirection: "row" }}>
+      <View style={{ width: 40, backgroundColor: "lightyellow" }}>
+        <Text style={styles.text}>{item.id}</Text>
+      </View>
+      <View style={{ width: 120, backgroundColor: "lightpink" }}>
+        <Text style={styles.text}>{item.title}</Text>
+      </View>
+      <View style={{ width: 270, backgroundColor: "lavender" }}>
+        <Text style={styles.text}>{item.body}</Text>
+      </View>
+    </View>
+  );
+};
 
 export default function MyTable({ dataFromFE, stylesFromFE }) {
-  // console.log(
-  //   ":rocket: ~ file: MyTable.tsx:13 ~ MyTable ~ dataFromFE, stylesFromFE:",
-  //   dataFromFE,
-  //   stylesFromFE
-  // );
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch('https://jsonplaceholder.typicode.com/posts')
       .then((response) => response.json())
       .then((json) => {
-        // console.log(json);
         setData(json);
       })
       .catch((error) => console.error(error))
@@ -39,9 +39,9 @@ export default function MyTable({ dataFromFE, stylesFromFE }) {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={[styles.title, stylesFromFE?.title]}>
-        {dataFromFE?.screenTitle ? dataFromFE.screenTitle : "Data from BE"}
+        {dataFromFE?.screenTitle ? dataFromFE.screenTitle : 'Data from BE'}
       </Text>
       {isLoading ? (
         <Text style={styles.title}>Loading Data...</Text>
@@ -52,10 +52,9 @@ export default function MyTable({ dataFromFE, stylesFromFE }) {
           keyExtractor={(item) => item.id}
         />
       )}
-      {/* <SvgComponent /> */}
-    </SafeAreaView>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -64,22 +63,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  text: { fontSize: 12, fontWeight: "bold", textAlign: "left" },
+  text: { fontSize: 12, fontWeight: 'bold', textAlign: 'left' },
 });
-
-const TableItem = ({ item }) => (
-  <View style={{ flexDirection: "row" }}>
-    <View style={{ width: 40, backgroundColor: "lightyellow" }}>
-      <Text style={styles.text}>{item.id}</Text>
-    </View>
-    <View style={{ width: 120, backgroundColor: "lightpink" }}>
-      <Text style={styles.text}>{item.title}</Text>
-    </View>
-    <View style={{ width: 270, backgroundColor: "lavender" }}>
-      <Text style={styles.text}>{item.body}</Text>
-    </View>
-  </View>
-);
